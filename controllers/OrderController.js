@@ -5,7 +5,7 @@ const OrderController = {
     async createorder (req, res){
         try {
             const order = await Order.create({
-                ...req,body,
+                ...req.body,
 
                 status:"pending",
                 deliveryDate: new Date().setDate(new Date().getDate() +2),
