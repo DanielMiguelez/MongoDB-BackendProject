@@ -9,7 +9,7 @@ const UserController = {
     async createUser(req,res){
         try {
             const hashedPassword = await bcrypt.hash(req.body.password, 10)
-            const user = await User.create({...req.body, password:hashedPassword})
+            const user = await User.create({...req.body, password:hashedPassword, role:"user"})
 
             res.status(201).send({msg:"user creado", user})
 
