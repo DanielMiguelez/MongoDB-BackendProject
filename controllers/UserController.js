@@ -47,6 +47,18 @@ const UserController = {
             console.error(error);
             return res.status(500).send({msg:"error al logear"});
         }
+    },
+
+    async logout(req, res){
+        try {
+            await User.findByIdAndUpdate(req.params._id,{
+                $pull:{tokens: req.headers.authorization},
+            })
+            res.status(200).send({msg:"desconectado con éxito"})
+        } catch (error) {
+            console.error(error);
+            return res.status(500).send({msg:"error al desconectarse"});
+        }
     }
 }
 
