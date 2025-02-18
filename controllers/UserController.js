@@ -6,7 +6,7 @@ const { jwt_secret } = require("../config/keys.js");
 
 const UserController = {
 
-    async createUser(req, res) {
+    async createUser(req, res, next) {
         try {
             const hashedPassword = await bcrypt.hash(req.body.password, 10)
             const user = await User.create({ ...req.body, password: hashedPassword, role: "user" })
@@ -15,7 +15,7 @@ const UserController = {
 
         } catch (error) {
             console.error(error);
-            res.status(500).send({ msg: "error al crear el producto" });
+            next(error);
         }
     },
 
