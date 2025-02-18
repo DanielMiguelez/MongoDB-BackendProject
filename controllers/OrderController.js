@@ -1,4 +1,5 @@
 const Order = require("../models/Order");
+const User = require("../models/User");
 
 const OrderController = {
 
@@ -11,7 +12,10 @@ const OrderController = {
                 deliveryDate: new Date().setDate(new Date().getDate() + 2),
                 userId: req.user._id,
             })
+
+            await User.findByIdAndUpdate(req.user._id, {$push : {orderIds: order._id}})
             res.status(201).send({ msg: "order created", order })
+            
         } catch (error) {
             console.error(error);
             res.status(500).send({ msg: "error al crear la orden" });

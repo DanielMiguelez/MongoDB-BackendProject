@@ -9,8 +9,14 @@ const OrderSchema = new mongoose.Schema({
         ref: 'User',  // Asegúrate de que el modelo 'User' existe
         required: true 
       },
+
+      productIds:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Product'
+      }],
       
-    deliveryDate:Date
+    deliveryDate:Date,
+
 }, {timestamps:true});
 
 const Order = mongoose.model('Order', OrderSchema)
