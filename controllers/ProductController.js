@@ -1,4 +1,5 @@
 const Product = require("../models/Product");
+const User = require("../models/User");
 
 const ProductController = {
 
@@ -82,6 +83,28 @@ const ProductController = {
         } catch (error) {
             console.error(error);
             res.status(500).send({msg:"error al insertar el comment"});
+        }
+    },
+
+    async like (req,res){
+        try {
+            const product = await Product.findByIdAndUpdate(
+                req.params._id,
+                { $push: { likes: req.user._id } },
+                { new: true }
+            );
+                
+            await User.findByIdAndUpdate(
+                req.user._id,
+                { $push: { wishList: req.params._id } },
+                { new: true }
+            );
+
+            res.send(product)
+
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({msg:"error al dar like al producto"});
         }
     }
 }

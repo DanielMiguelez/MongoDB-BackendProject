@@ -69,7 +69,8 @@ const UserController = {
                     populate: {
                         path: "productIds",
                     },
-                });
+                })
+                .populate("wishList")
             res.status(200).send({ msg: "user info", infoUser })
         } catch (error) {
             console.error(error);
