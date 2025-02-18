@@ -14,7 +14,9 @@ const ProductController = {
 
     async getAllProducts(req,res){
         try {
-            const products = await Product.find();
+            const products = await Product.find()
+            .limit(req.query.limit)
+            .skip((req.query.page -1)* req.query.limit)
             res.send(products)
         } catch (error) {
             console.error(error);
