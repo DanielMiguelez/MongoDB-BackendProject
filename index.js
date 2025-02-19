@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
-const PORT = 8080;
+
+require("dotenv").config();
+const PORT = process.env.PORT || 3001;
+
+
 const {dbConnection} = require("./config/config");
-
 app.use(express.json())
-
 const {handleTypeError} = require("./middlewares/errors")
 
 app.use('/products', require('./routes/products'));
